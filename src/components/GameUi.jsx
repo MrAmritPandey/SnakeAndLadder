@@ -1,22 +1,76 @@
-//import { useEffect } from "react";
-
 const GameUi = ({ position }) => {
   let { red, yellow } = position;
+  let left;
+  let bottom;
 
-  let left = 0 + "px";
-  let bottom = 0 + "px";
+  let RedStyle = {
+    backgroundColor: "red",
+    position: "absolute",
+    bottom: -60,
+    left: 40,
+  };
 
-  if (red !== 0) {
-    if (red + 1 < 11) {
-      bottom = red * 60 + "px";
-      left = 0 + "px";
-      console.log(bottom, left);
+  let YellowStyle = {
+    backgroundColor: "yellow",
+    position: "absolute",
+    bottom: -60,
+    left: 10,
+  };
+
+  // for red small than 10
+  if (red <= 10 && red > 0) {
+    bottom = 0;
+    left = (red - 1) * 60;
+    RedStyle = { ...RedStyle, bottom, left };
+  }
+
+  //for yellow small than 10
+  if (yellow <= 10 && yellow > 0) {
+    bottom = 0;
+    left = (yellow - 1) * 60;
+    YellowStyle = { ...YellowStyle, bottom, left };
+  }
+
+  //for red big(red > 10)
+  if (red > 10) {
+    red = red - 1;
+    bottom = Math.floor(red / 10) * 60;
+    let x = Math.floor(red / 10); //return which floor is this
+
+    if (x % 2 == 0) {
+      //even floor
+      left = (red - x * 10) * 60;
+    } else {
+      //odd floor
+      left = 600 - (red + 1 - x * 10) * 60;
     }
-    if (red + 1 > 11) {
-      bottom = Math.floor(red / 10) + 1 * 60 + "px";
-      left = (red % 10) * 60 + "px";
-      console.log(bottom, left);
+
+    RedStyle = { ...RedStyle, bottom: bottom, left: left };
+  }
+
+  if (yellow > 10) {
+    yellow = yellow - 1;
+    bottom = Math.floor(yellow / 10) * 60;
+    let x = Math.floor(yellow / 10); //return which floor is this
+
+    if (x % 2 == 0) {
+      //even floor
+      left = (yellow - x * 10) * 60;
+    } else {
+      //odd floor
+      left = 600 - (yellow + 1 - x * 10) * 60;
     }
+
+    YellowStyle = { ...YellowStyle, bottom: bottom, left: left };
+  }
+
+  //if no dice is rolled
+  if (red == 0) {
+    RedStyle = { ...RedStyle };
+  }
+
+  if (yellow == 0) {
+    YellowStyle = { ...YellowStyle };
   }
 
   const renderCell = () => {
@@ -29,7 +83,7 @@ const GameUi = ({ position }) => {
         for (let j = 1; j <= 10; j++) {
           subarray.push(
             <div
-              className="border relative w-[60px] h-[60px]"
+              className="border w-[60px] h-[60px]"
               key={i * 10 + j}
               id={i * 10 + j}
             ></div>
@@ -66,22 +120,12 @@ const GameUi = ({ position }) => {
         className="w-[600px] aspect-square absolute"
       />
       <div
-        className={
-          "w-[50px] h-[50px] rounded-full bg-yellow-500 absolute bottom-[" +
-          bottom +
-          "] left-[" +
-          left +
-          "]"
-        }
+        className="w-[50px] h-[50px] rounded-full z-10"
+        style={YellowStyle}
       ></div>
       <div
-        className={
-          "w-[50px] h-[50px] rounded-full bg-red-500 absolute bottom-[" +
-          bottom +
-          "] left-[" +
-          left +
-          "] "
-        }
+        className="w-[50px] h-[50px] rounded-full z-20"
+        style={RedStyle}
       ></div>
     </div>
   );

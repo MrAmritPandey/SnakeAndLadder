@@ -3,8 +3,10 @@ import { useState, useRef } from "react";
 const Dice = ({ position, setPosition }) => {
   const [dice, setDice] = useState(0);
   const [turn, setTurn] = useState(false);
+
   // const [position, setPosition] = useState({ red: 0, yellow: 0 });
-  const rollDice =  () => {
+
+  const rollDice = () => {
     let x = Math.floor(Math.random() * 6) + 1;
     setDice(x);
 
@@ -38,6 +40,9 @@ const Dice = ({ position, setPosition }) => {
       >
         ROLL
       </button>
+      
+      <p>Red: {position.red}</p>
+      <p>Yellow: {position.yellow}</p>
 
       {/* <div className="w-[50px] h-[50px] rounded-full bg-yellow-500"></div>
       <div className="w-[50px] h-[50px] rounded-full bg-red-500"></div> */}
