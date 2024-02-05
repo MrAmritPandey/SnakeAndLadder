@@ -27,21 +27,21 @@ const GameUi = ({ position, setPosition }) => {
   let greenStyle = {
     backgroundColor: "green",
     position: "absolute",
-    bottom: -60,
-    left: 40,
+    bottom: -35,
+    left: 20,
   };
 
   let blueStyle = {
     backgroundColor: "blue",
     position: "absolute",
-    bottom: -60,
+    bottom: -35,
     left: 10,
   };
 
   // for green small than 10
   if (green <= 10 && green > 0) {
     bottom = 0;
-    left = (green - 1) * 60;
+    left = (green - 1) * 38;
     greenStyle = { ...greenStyle, bottom, left };
     if (ladder[green] !== undefined) {
       setPosition({ ...position, green: ladder[green] });
@@ -51,7 +51,7 @@ const GameUi = ({ position, setPosition }) => {
   //for blue small than 10
   if (blue <= 10 && blue > 0) {
     bottom = 0;
-    left = (blue - 1) * 60;
+    left = (blue - 1) * 38;
     blueStyle = { ...blueStyle, bottom, left };
     if (ladder[blue] !== undefined) {
       setPosition({ ...position, blue: ladder[blue] });
@@ -61,15 +61,15 @@ const GameUi = ({ position, setPosition }) => {
   //for green big(green > 10)
   if (green > 10) {
     green = green - 1;
-    bottom = Math.floor(green / 10) * 60;
+    bottom = Math.floor(green / 10) * 38;
     let x = Math.floor(green / 10); //return which floor is this
 
     if (x % 2 == 0) {
       //even floor
-      left = (green - x * 10) * 60;
+      left = (green - x * 10) * 38;
     } else {
       //odd floor
-      left = 600 - (green + 1 - x * 10) * 60;
+      left = 380 - (green + 1 - x * 10) * 38;
     }
 
     greenStyle = { ...greenStyle, bottom: bottom, left: left };
@@ -85,21 +85,20 @@ const GameUi = ({ position, setPosition }) => {
     if (green + 1 == 100) {
       alert("green won");
       setPosition({ green: 0, blue: 0 });
-    };
-  };
-  
+    }
+  }
 
   if (blue > 10) {
     blue = blue - 1;
-    bottom = Math.floor(blue / 10) * 60;
+    bottom = Math.floor(blue / 10) * 38;
     let x = Math.floor(blue / 10); //return which floor is this
 
     if (x % 2 == 0) {
       //even floor
-      left = (blue - x * 10) * 60;
+      left = (blue - x * 10) * 38;
     } else {
       //odd floor
-      left = 600 - (blue + 1 - x * 10) * 60;
+      left = 380 - (blue + 1 - x * 10) *38;
     }
 
     blueStyle = { ...blueStyle, bottom: bottom, left: left };
@@ -115,7 +114,7 @@ const GameUi = ({ position, setPosition }) => {
     if (blue + 1 == 100) {
       alert("blue won");
       setPosition({ green: 0, blue: 0 });
-    };
+    }
   }
 
   //if no dice is rolled
@@ -139,7 +138,7 @@ const GameUi = ({ position, setPosition }) => {
         for (let j = 1; j <= 10; j++) {
           subarray.push(
             <div
-              className="border w-[60px] h-[60px]"
+              className="border w-[38px] h-[38px]"
               key={i * 10 + j}
               id={i * 10 + j}
             ></div>
@@ -152,7 +151,7 @@ const GameUi = ({ position, setPosition }) => {
         for (let j = 1; j <= 10; j++) {
           subarray.unshift(
             <div
-              className="border w-[60px] h-[60px]"
+              className="border w-[38px] h-[38px]"
               key={i * 10 + j}
               id={i * 10 + j}
             >
@@ -169,20 +168,14 @@ const GameUi = ({ position, setPosition }) => {
   };
 
   return (
-    <div className="relative w-[600px] grid grid-cols-10">
+    <div className="relative w-[380px] grid grid-cols-10">
       {renderCell()}
       <img
         src="ui.png"
-        className="w-[380px] sm:w-[600px] aspect-square absolute"
+        className="w-[380px] aspect-square absolute"
       />
-      <div
-        className="diceSize z-10"
-        style={blueStyle}
-      ></div>
-      <div
-        className="diceSize z-20"
-        style={greenStyle}
-      ></div>
+      <div className="diceSize z-10" style={blueStyle}></div>
+      <div className="diceSize z-20" style={greenStyle}></div>
     </div>
   );
 };

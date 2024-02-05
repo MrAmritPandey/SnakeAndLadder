@@ -13,8 +13,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-;
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -45,9 +43,8 @@
   }
 
   .diceSize{
-    @apply w-[50px] h-[50px] rounded-full;
+    @apply w-[34px] h-[34px] rounded-full;
   }
-
 }
 
 @media (prefers-color-scheme: light) {
