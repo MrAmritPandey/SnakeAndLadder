@@ -7,9 +7,9 @@ function App() {
 
   return (
     <main className="min-h-screen w-full">
-      <div className="w-full h-screen flex justify-center items-center">
+      <div className="lg:laptop sm:tablet mobile">
         <Dice position={position} setPosition={setPosition} />
-        <GameUi position={position} setPosition={setPosition}/>
+        <GameUi position={position} setPosition={setPosition} />
       </div>
     </main>
   );

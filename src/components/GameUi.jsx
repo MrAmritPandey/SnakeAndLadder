@@ -2,6 +2,7 @@ const GameUi = ({ position, setPosition }) => {
   let { green, blue } = position;
   let left;
   let bottom;
+
   const ladder = {
     1: 38,
     4: 14,
@@ -85,8 +86,8 @@ const GameUi = ({ position, setPosition }) => {
       alert("green won");
       setPosition({ green: 0, blue: 0 });
     };
-
-  }
+  };
+  
 
   if (blue > 10) {
     blue = blue - 1;
@@ -172,14 +173,14 @@ const GameUi = ({ position, setPosition }) => {
       {renderCell()}
       <img
         src="src/assets/ui.png"
-        className="w-[600px] aspect-square absolute"
+        className="w-[380px] sm:w-[600px] aspect-square absolute"
       />
       <div
-        className="w-[50px] h-[50px] rounded-full z-10"
+        className="diceSize z-10"
         style={blueStyle}
       ></div>
       <div
-        className="w-[50px] h-[50px] rounded-full z-20"
+        className="diceSize z-20"
         style={greenStyle}
       ></div>
     </div>

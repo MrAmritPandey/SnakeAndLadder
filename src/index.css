@@ -11,11 +11,44 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-};
+}
+
+;
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .laptop {
+    @apply w-full static h-screen flex flex-row justify-center items-center;
+  }
+
+  .laptopDice {
+    @apply w-[400px] h-[600px] flex flex-col justify-center items-center;
+  }
+
+  .tablet {
+    @apply static w-full h-screen flex flex-col items-center justify-start;
+  }
+
+  .tabletDice {
+    @apply w-full h-24 flex justify-around items-center;
+  }
+
+  .mobile {
+    @apply w-full h-screen;
+  }
+
+  .mobileDice {
+    @apply w-full flex justify-around items-center ;
+  }
+
+  .diceSize{
+    @apply w-[50px] h-[50px] rounded-full;
+  }
+
+}
 
 @media (prefers-color-scheme: light) {
   :root {
