@@ -4,33 +4,28 @@ const Dice = ({ position, setPosition }) => {
   const [dice, setDice] = useState(0);
   const [turn, setTurn] = useState(false);
 
-  // const [position, setPosition] = useState({ red: 0, yellow: 0 });
-
   const rollDice = () => {
     let x = Math.floor(Math.random() * 6) + 1;
     setDice(x);
 
     if (turn === true) {
-      let r = Number(position.red + dice);
-      setPosition({ ...position, red: r });
+      if (position.green + dice <= 100) {
+        let r = Number(position.green + dice);
+        setPosition({ ...position, green: r });
+      }
     } else {
-      let y = Number(position.yellow + dice);
-      setPosition({ ...position, yellow: y });
+      if (position.blue + dice <= 100) {
+        let y = Number(position.blue + dice);
+        setPosition({ ...position, blue: y });
+      }
     }
-    // console.log(dice);
     setTurn(!turn);
   };
 
   return (
     <div className="w-[400px] h-[600px] flex flex-col justify-center items-center ">
-      <h1
-        className={
-          turn
-            ? "text-red-700 text-3xl font-extrabold"
-            : "text-yellow-700 text-3xl font-extrabold"
-        }
-      >
-        {turn ? "Red" : "Yellow"} Turn
+      <h1 className={turn ? "text-3xl font-extrabold text-green-800" : "text-3xl font-extrabold text-blue-700"}>
+        {turn ? "Green Turn" : "Blue Turn"}
       </h1>
       <h1 className="text-3xl">{dice}</h1>
 
@@ -40,12 +35,12 @@ const Dice = ({ position, setPosition }) => {
       >
         ROLL
       </button>
-      
-      <p>Red: {position.red}</p>
-      <p>Yellow: {position.yellow}</p>
 
-      {/* <div className="w-[50px] h-[50px] rounded-full bg-yellow-500"></div>
-      <div className="w-[50px] h-[50px] rounded-full bg-red-500"></div> */}
+      <p>Green: {position.green}</p>
+      <p>Blue: {position.blue}</p>
+
+      {/* <div className="w-[50px] h-[50px] rounded-full bg-blue-500"></div>
+      <div className="w-[50px] h-[50px] rounded-full bg--500"></div> */}
     </div>
   );
 };

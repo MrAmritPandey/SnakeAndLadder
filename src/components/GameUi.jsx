@@ -1,77 +1,132 @@
-const GameUi = ({ position }) => {
-  let { red, yellow } = position;
+const GameUi = ({ position, setPosition }) => {
+  let { green, blue } = position;
   let left;
   let bottom;
+  const ladder = {
+    1: 38,
+    4: 14,
+    8: 30,
+    21: 42,
+    28: 76,
+    50: 67,
+    80: 99,
+    71: 92,
+  };
 
-  let RedStyle = {
-    backgroundColor: "red",
+  const snake = {
+    36: 6,
+    32: 10,
+    48: 26,
+    62: 18,
+    88: 24,
+    95: 56,
+    97: 78,
+  };
+
+  let greenStyle = {
+    backgroundColor: "green",
     position: "absolute",
     bottom: -60,
     left: 40,
   };
 
-  let YellowStyle = {
-    backgroundColor: "yellow",
+  let blueStyle = {
+    backgroundColor: "blue",
     position: "absolute",
     bottom: -60,
     left: 10,
   };
 
-  // for red small than 10
-  if (red <= 10 && red > 0) {
+  // for green small than 10
+  if (green <= 10 && green > 0) {
     bottom = 0;
-    left = (red - 1) * 60;
-    RedStyle = { ...RedStyle, bottom, left };
+    left = (green - 1) * 60;
+    greenStyle = { ...greenStyle, bottom, left };
+    if (ladder[green] !== undefined) {
+      setPosition({ ...position, green: ladder[green] });
+    }
   }
 
-  //for yellow small than 10
-  if (yellow <= 10 && yellow > 0) {
+  //for blue small than 10
+  if (blue <= 10 && blue > 0) {
     bottom = 0;
-    left = (yellow - 1) * 60;
-    YellowStyle = { ...YellowStyle, bottom, left };
+    left = (blue - 1) * 60;
+    blueStyle = { ...blueStyle, bottom, left };
+    if (ladder[blue] !== undefined) {
+      setPosition({ ...position, blue: ladder[blue] });
+    }
   }
 
-  //for red big(red > 10)
-  if (red > 10) {
-    red = red - 1;
-    bottom = Math.floor(red / 10) * 60;
-    let x = Math.floor(red / 10); //return which floor is this
+  //for green big(green > 10)
+  if (green > 10) {
+    green = green - 1;
+    bottom = Math.floor(green / 10) * 60;
+    let x = Math.floor(green / 10); //return which floor is this
 
     if (x % 2 == 0) {
       //even floor
-      left = (red - x * 10) * 60;
+      left = (green - x * 10) * 60;
     } else {
       //odd floor
-      left = 600 - (red + 1 - x * 10) * 60;
+      left = 600 - (green + 1 - x * 10) * 60;
     }
 
-    RedStyle = { ...RedStyle, bottom: bottom, left: left };
+    greenStyle = { ...greenStyle, bottom: bottom, left: left };
+    //for ladder
+    if (ladder[green + 1] !== undefined) {
+      setPosition({ ...position, green: ladder[green + 1] });
+    }
+    //for snake
+    if (snake[green + 1] !== undefined) {
+      setPosition({ ...position, green: snake[green + 1] });
+    }
+    //for won
+    if (green + 1 == 100) {
+      alert("green won");
+      setPosition({ green: 0, blue: 0 });
+    };
+
   }
 
-  if (yellow > 10) {
-    yellow = yellow - 1;
-    bottom = Math.floor(yellow / 10) * 60;
-    let x = Math.floor(yellow / 10); //return which floor is this
+  if (blue > 10) {
+    blue = blue - 1;
+    bottom = Math.floor(blue / 10) * 60;
+    let x = Math.floor(blue / 10); //return which floor is this
 
     if (x % 2 == 0) {
       //even floor
-      left = (yellow - x * 10) * 60;
+      left = (blue - x * 10) * 60;
     } else {
       //odd floor
-      left = 600 - (yellow + 1 - x * 10) * 60;
+      left = 600 - (blue + 1 - x * 10) * 60;
     }
 
-    YellowStyle = { ...YellowStyle, bottom: bottom, left: left };
+    blueStyle = { ...blueStyle, bottom: bottom, left: left };
+    //for ladder
+    if (ladder[blue + 1] !== undefined) {
+      setPosition({ ...position, blue: ladder[blue + 1] });
+    }
+    //for snake
+    if (snake[blue + 1] !== undefined) {
+      setPosition({ ...position, blue: snake[blue + 1] });
+    }
+    //for won
+    if (blue + 1 == 100) {
+      alert("blue won");
+      setPosition({ green: 0, blue: 0 });
+    };
   }
 
   //if no dice is rolled
-  if (red == 0) {
-    RedStyle = { ...RedStyle };
+  if (green == 0) {
+    greenStyle = { ...greenStyle };
   }
 
-  if (yellow == 0) {
-    YellowStyle = { ...YellowStyle };
+  if (blue == 0) {
+    blueStyle = { ...blueStyle };
   }
+
+  //for ladder
 
   const renderCell = () => {
     let cells = [];
@@ -100,7 +155,7 @@ const GameUi = ({ position }) => {
               key={i * 10 + j}
               id={i * 10 + j}
             >
-              {/* <div className="w-[50px] h-[50px] rounded-full bg-yellow-500 absolute z-10"></div> */}
+              {/* <div className="w-[50px] h-[50px] rounded-full bg-blue-500 absolute z-10"></div> */}
             </div>
           );
         }
@@ -121,11 +176,11 @@ const GameUi = ({ position }) => {
       />
       <div
         className="w-[50px] h-[50px] rounded-full z-10"
-        style={YellowStyle}
+        style={blueStyle}
       ></div>
       <div
         className="w-[50px] h-[50px] rounded-full z-20"
-        style={RedStyle}
+        style={greenStyle}
       ></div>
     </div>
   );
