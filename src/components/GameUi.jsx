@@ -172,7 +172,7 @@ const GameUi = ({ position, setPosition }) => {
     <div className="relative w-[600px] grid grid-cols-10">
       {renderCell()}
       <img
-        src="src/assets/ui.png"
+        src="ui.png"
         className="w-[380px] sm:w-[600px] aspect-square absolute"
       />
       <div
